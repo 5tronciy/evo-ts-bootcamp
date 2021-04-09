@@ -1,0 +1,8 @@
+{
+  "short_name": "Bubble Sort Visualization",
+  "name": "Bubble Sort Visualization",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
