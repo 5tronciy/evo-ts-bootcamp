@@ -3,6 +3,7 @@ import Title from "./components/Title";
 import BubbleSort from "./components/BubbleSort";
 import Status from "./components/Status";
 import { generateArray } from "./utils";
+import styles from "./styles.module.css";
 
 type AppState = {
   array: number[];
@@ -27,7 +28,7 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <main className={styles.app}>
         <Title />
         <BubbleSort
           array={this.state.array}
@@ -35,7 +36,7 @@ class App extends Component {
           onStart={this.sortArray.bind(this)}
         />
         <Status />
-      </>
+      </main>
     );
   }
 }
