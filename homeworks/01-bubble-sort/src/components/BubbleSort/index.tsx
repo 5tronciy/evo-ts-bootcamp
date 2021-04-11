@@ -1,7 +1,10 @@
+import { MouseEvent } from "react";
 import styles from "./styles.module.css";
 
 type Props = {
   array: number[];
+  onNewSet: (event: MouseEvent<HTMLButtonElement>) => void;
+  onStart: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
 const BubbleSort = (props: Props) => {
@@ -17,8 +20,8 @@ const BubbleSort = (props: Props) => {
         ))}
       </div>
       <div className={styles.buttons}>
-        <button>New set</button>
-        <button>Start</button>
+        <button onClick={props.onNewSet}>New set</button>
+        <button onClick={props.onStart}>Start</button>
       </div>
     </>
   );

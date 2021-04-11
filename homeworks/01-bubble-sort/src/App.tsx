@@ -15,13 +15,25 @@ class App extends Component {
     this.setState({ array: generateArray(50) });
   }
 
+  newSet() {
+    this.setState({ array: generateArray(50) });
+  }
+
+  sortArray() {
+    return;
+  }
+
   componentWillUnmount() {}
 
   render() {
     return (
       <>
         <Title />
-        <BubbleSort array={this.state.array} />
+        <BubbleSort
+          array={this.state.array}
+          onNewSet={this.newSet.bind(this)}
+          onStart={this.sortArray.bind(this)}
+        />
         <Status />
       </>
     );
