@@ -4,6 +4,7 @@ import styles from "./styles.module.css";
 type Props = {
   array: number[];
   isPlaying: boolean;
+  status: string;
   onNewSet: (event: MouseEvent<HTMLButtonElement>) => void;
   onStart: (event: MouseEvent<HTMLButtonElement>) => void;
   onPause: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -25,6 +26,10 @@ const BubbleSort = (props: Props) => {
         <button onClick={props.onNewSet}>New set</button>
         {props.isPlaying ? (
           <button onClick={props.onPause}>Pause</button>
+        ) : props.status === "Solved" ? (
+          <button disabled onClick={props.onStart}>
+            Start
+          </button>
         ) : (
           <button onClick={props.onStart}>Start</button>
         )}

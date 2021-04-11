@@ -61,6 +61,7 @@ class App extends Component {
         <BubbleSort
           array={this.state.array.arr}
           isPlaying={this.state.interval != null}
+          status={this.state.status}
           onNewSet={this.newSet.bind(this)}
           onStart={this.sortArray.bind(this)}
           onPause={this.pause.bind(this)}
