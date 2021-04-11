@@ -5,26 +5,72 @@ import Status from "./components/Status";
 import { generateArray } from "./utils";
 import styles from "./styles.module.css";
 
-type AppState = {
+const ELEMENTS_COUNT = 10;
+const INTERVAL = 1000;
+
+type State = {
   array: number[];
+  status: string;
 };
 
 class App extends Component {
-  state: AppState = { array: [] };
+  timerId: number = 0;
+  state: State = { array: [], status: "Not Solved" };
 
   componentDidMount() {
-    this.setState({ array: generateArray(50) });
+    this.newSet();
   }
 
   newSet() {
-    this.setState({ array: generateArray(50) });
+    this.setState({ array: generateArray(ELEMENTS_COUNT) });
   }
 
   sortArray() {
-    return;
+    const arr = this.state.array;
+    const len = arr.length;
+    var isSwapped = false;
+
+    // for (var i = 0; i < len; i++) {
+    //   isSwapped = false;
+    //   for (var j = 0; j < len; j++) {
+    //     if (arr[j] > arr[j + 1]) {
+    //       var temp = arr[j];
+    //       arr[j] = arr[j + 1];
+    //       arr[j + 1] = temp;
+    //       isSwapped = true;
+    //       this.timerId = window.setInterval(() => {
+    //         this.setState({ array: arr });
+    //       }, INTERVAL);
+    //       console.log(arr);
+    //     }
+    //   }
+    //   if (!isSwapped) {
+    //     break;
+    //   }
+    // }
+    for (var i = 0; i < len; i++) {
+      isSwapped = false;
+      for (var j = 0; j < len - i - 1; j++) {
+        this.timerId = window.setInterval(() => {
+          this.setState({ array: arr });
+        }, INTERVAL);
+        if (arr[j] > arr[j + 1]) {
+          var temp = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = temp;
+          isSwapped = true;
+          console.log(arr);
+        }
+      }
+      if (!isSwapped) {
+        break;
+      }
+    }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    clearInterval(this.timerId);
+  }
 
   render() {
     return (
@@ -35,7 +81,7 @@ class App extends Component {
           onNewSet={this.newSet.bind(this)}
           onStart={this.sortArray.bind(this)}
         />
-        <Status />
+        <Status status={this.state.status} />
       </main>
     );
   }
