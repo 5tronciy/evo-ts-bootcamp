@@ -14,6 +14,7 @@ type State = {
     finished?: boolean;
   };
   status: string;
+  interval?: null | ReturnType<typeof setTimeout>;
 };
 
 class App extends Component {
@@ -38,9 +39,15 @@ class App extends Component {
       this.setState({ array: sortArrayStep(this.state.array) });
       if (this.state.array.finished) {
         clearInterval(this.timerId);
-        this.setState({ status: "Solved" });
+        this.setState({ interval: null, status: "Solved" });
       }
     }, INTERVAL);
+    this.setState({ interval: this.timerId, status: "Not Solved" });
+  }
+
+  pause() {
+    this.state.interval && clearInterval(this.state.interval);
+    this.setState({ interval: null });
   }
 
   componentWillUnmount() {
@@ -53,8 +60,10 @@ class App extends Component {
         <Title />
         <BubbleSort
           array={this.state.array.arr}
+          isPlaying={this.state.interval != null}
           onNewSet={this.newSet.bind(this)}
           onStart={this.sortArray.bind(this)}
+          onPause={this.pause.bind(this)}
         />
         <Status status={this.state.status} />
       </main>
