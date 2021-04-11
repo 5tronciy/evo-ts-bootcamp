@@ -1,15 +1,14 @@
 import { Component } from "react";
 import Title from "./components/Title";
-import Frame from "./components/Frame";
+import BubbleSort from "./components/BubbleSort";
 import Status from "./components/Status";
 
-type Props = {};
+type AppState = {
+  array: number[];
+};
 
 class App extends Component {
-  constructor(props: Props) {
-    super(props);
-    this.state = {};
-  }
+  state: AppState = { array: [123, 2] };
 
   componentDidMount() {}
 
@@ -19,7 +18,7 @@ class App extends Component {
     return (
       <>
         <Title />
-        <Frame />
+        <BubbleSort array={this.state.array} />
         <Status />
       </>
     );
