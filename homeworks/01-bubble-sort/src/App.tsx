@@ -5,7 +5,7 @@ import Status from "./components/Status";
 import { generateArray, sortArrayStep } from "./utils";
 import styles from "./styles.module.css";
 
-const ELEMENTS_COUNT = 30;
+const ELEMENTS_COUNT = 10;
 const INTERVAL = 100;
 
 type State = {
@@ -31,7 +31,10 @@ class App extends Component {
   }
 
   newSet() {
-    this.setState({ array: { arr: generateArray(ELEMENTS_COUNT) } });
+    this.setState({
+      array: { arr: generateArray(ELEMENTS_COUNT) },
+      status: "Not Solved",
+    });
   }
 
   sortArray() {
