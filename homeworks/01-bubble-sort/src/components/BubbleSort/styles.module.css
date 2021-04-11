@@ -1,0 +1,17 @@
+.array {
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.element {
+  background-color: #faebd7;
+  border-radius: 4px;
+  border: 1px solid #c7b7a3;
+  width: 10px;
+  display: inline-block;
+}
+
+.buttons {
+  padding-top: 20px;
+}

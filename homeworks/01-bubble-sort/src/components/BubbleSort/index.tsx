@@ -1,3 +1,5 @@
+import styles from "./styles.module.css";
+
 type Props = {
   array: number[];
 };
@@ -5,16 +7,16 @@ type Props = {
 const BubbleSort = (props: Props) => {
   return (
     <>
-      <div className="array" style={{ height: "200px" }}>
+      <div className={styles.array}>
         {props.array.map((item, index) => (
           <div
             key={index}
-            className="element"
+            className={styles.element}
             style={{ height: item + "px" }}
           ></div>
         ))}
       </div>
-      <div className="buttons">
+      <div className={styles.buttons}>
         <button>New set</button>
         <button>Start</button>
       </div>
