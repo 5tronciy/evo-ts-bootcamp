@@ -5,8 +5,8 @@ import Status from "./components/Status";
 import { generateArray, sortArrayStep } from "./utils";
 import styles from "./styles.module.css";
 
-const ELEMENTS_COUNT = 10;
-const INTERVAL = 100;
+const ELEMENTS_COUNT = 30;
+const INTERVAL = 60;
 
 type State = {
   array: {
@@ -35,6 +35,7 @@ class App extends Component {
       array: { arr: generateArray(ELEMENTS_COUNT) },
       status: "Not Solved",
     });
+    this.pause();
   }
 
   sortArray() {
