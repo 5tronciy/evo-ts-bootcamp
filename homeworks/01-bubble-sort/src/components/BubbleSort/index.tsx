@@ -10,7 +10,8 @@ type Props = {
   onPause: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
-const BubbleSort = (props: Props) => {
+
+export const BubbleSort = (props: Props) => {
   return (
     <>
       <div className={styles.array}>
@@ -37,5 +38,3 @@ const BubbleSort = (props: Props) => {
     </>
   );
 };
-
-export default BubbleSort;

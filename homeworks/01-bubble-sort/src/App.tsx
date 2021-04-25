@@ -1,7 +1,7 @@
 import { Component } from "react";
-import Title from "./components/Title";
-import BubbleSort from "./components/BubbleSort";
-import Status from "./components/Status";
+import { Title } from "./components/Title";
+import { BubbleSort } from "./components/BubbleSort";
+import { Status } from "./components/Status";
 import { generateArray, sortArrayStep } from "./utils";
 import styles from "./styles.module.css";
 
@@ -11,17 +11,18 @@ const INTERVAL = 60;
 type State = {
   array: {
     arr: number[];
-    finished?: boolean;
+    finished: boolean;
   };
   status: string;
   interval?: null | ReturnType<typeof setTimeout>;
 };
 
-class App extends Component {
+export class App extends Component {
   timerId: number = 0;
   state: State = {
     array: {
       arr: [],
+      finished: false,
     },
     status: "Not Solved",
   };
@@ -75,5 +76,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;
