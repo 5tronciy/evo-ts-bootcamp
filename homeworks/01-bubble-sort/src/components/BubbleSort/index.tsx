@@ -10,6 +10,7 @@ type Props = {
   onPause: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
+
 export const BubbleSort = (props: Props) => {
   return (
     <>
