@@ -1,9 +1,11 @@
 .container {
   max-width: 800px;
   margin: 5px auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto;
-  grid-gap: 5px;
-  grid-auto-flow: dense;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+img {
+  margin: 5px;
+  flex: 1;
 }
