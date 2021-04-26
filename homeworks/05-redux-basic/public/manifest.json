@@ -1,0 +1,8 @@
+{
+  "short_name": "redux-basic",
+  "name": "05 Redux Basic Task",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
