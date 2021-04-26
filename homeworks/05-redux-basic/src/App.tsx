@@ -1,10 +1,8 @@
 import { useEffect } from "react";
-import { createStore, Reducer } from "redux";
+import { createStore, Reducer, AnyAction } from "redux";
 
-type ActionTypes = any;
-
-export const amountReducer: Reducer<number, ActionTypes> = (
-  state = 0,
+export const amountReducer: Reducer<number, AnyAction> = (
+  state: number = 0,
   action
 ) => {
   switch (action.type) {
@@ -44,5 +42,5 @@ const array = [
 export const App = () => {
   useEffect(() => array.forEach((action) => store.dispatch(action), []));
 
-  return <></>;
+  return null;
 };
