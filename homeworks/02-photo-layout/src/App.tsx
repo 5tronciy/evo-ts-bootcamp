@@ -4,8 +4,10 @@ import styles from "./App.module.css";
 
 const COUNT: number = 12;
 
+const UNSPLASH_ACESS_KEY = process.env.REACT_APP_UNSPLASH;
+
 const unsplashApi = createApi({
-  accessKey: "CmYTeujUphznd_5yCjXbRsBDEb3DA1XpshuSLfiq-s8",
+  accessKey: String(UNSPLASH_ACESS_KEY),
 });
 
 interface Photo {
