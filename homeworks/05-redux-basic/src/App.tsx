@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { createStore, Reducer, AnyAction } from "redux";
+import { createStore, compose, Reducer, AnyAction } from "redux";
 
-export const amountReducer: Reducer<number, AnyAction> = (
+export const rootReducer: Reducer<number, AnyAction> = (
   state: number = 0,
   action
 ) => {
@@ -9,10 +9,10 @@ export const amountReducer: Reducer<number, AnyAction> = (
     case "UPDATE_BALANCE":
       return action.payload;
     case "DEBIT":
-      return state - action.payload;
-    case "CREDIT":
       return state + action.payload;
-    case "GET_BALANCE_WITHOUT_TAX":
+    case "CREDIT":
+      return state - action.payload;
+    case "SET_BALANCE_WITH_TAX":
       return (state * (100 - action.payload)) / 100;
     default:
       return state;
@@ -21,26 +21,18 @@ export const amountReducer: Reducer<number, AnyAction> = (
 
 declare global {
   interface Window {
-    __REDUX_DEVTOOLS_EXTENSION__: any;
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
   }
 }
-
-const store = createStore(
-  amountReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
-
-const array = [
-  { type: "UPDATE_BALANCE", payload: 1000.0 },
-  { type: "CREDIT", payload: 200.0 },
-  { type: "CREDIT", payload: 100.0 },
-  { type: "GET_BALANCE_WITHOUT_TAX", payload: 14 },
-  { type: "DEBIT", payload: 250.0 },
-  { type: "UPDATE_BALANCE", payload: 1000.0 },
-];
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const balance = createStore(rootReducer, undefined, composeEnhancers());
 
 export const App = () => {
-  useEffect(() => array.forEach((action) => store.dispatch(action), []));
-
+  useEffect(() => {
+    balance.dispatch({ type: "UPDATE_BALANCE", payload: 1000.0 });
+    balance.dispatch({ type: "CREDIT", payload: 200.0 });
+    balance.dispatch({ type: "DEBIT", payload: 50.0 });
+    balance.dispatch({ type: "SET_BALANCE_WITH_TAX", payload: 14.0 });
+  }, []);
   return null;
 };
