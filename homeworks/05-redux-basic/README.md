@@ -1,3 +1,9 @@
+# Demo
+
+https://amount-balance.netlify.app/
+
+Use Redux DevTools extension to dispatch actions.
+
 # Task
 
 You should create one application using CRA or not. After you create the
