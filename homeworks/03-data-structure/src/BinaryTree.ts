@@ -7,12 +7,12 @@ enum TraverseType {
 
 interface TreeNode<T> {
   value: T;
-  left: TreeNode<T>;
-  right: TreeNode<T>;
+  left?: TreeNode<T>;
+  right?: TreeNode<T>;
 }
 
 interface IBinaryTree<T> {
-  //   constructor(tree: TreeNode<T>): void;
+  // constructor(tree: TreeNode<T>): void;
 
   setTree(tree: TreeNode<T>): this;
 
@@ -38,22 +38,20 @@ function BreadthSort<T>(node: TreeNode<T>): T[] {
   return result;
 }
 
-function InorderSort<T>(node: TreeNode<T>): T[] {
-  return [...InorderSort(node.left), node.value, ...InorderSort(node.right)];
+function InorderSort<T>(node?: TreeNode<T>): T[] {
+  return node
+    ? [...InorderSort(node.left), node.value, ...InorderSort(node.right)]
+    : [];
 }
-function PostorderSort<T>(node: TreeNode<T>): T[] {
-  return [
-    ...PostorderSort(node.left),
-    ...PostorderSort(node.right),
-    node.value,
-  ];
+function PostorderSort<T>(node?: TreeNode<T>): T[] {
+  return node
+    ? [...PostorderSort(node.left), ...PostorderSort(node.right), node.value]
+    : [];
 }
-function PreorderSort<T>(node: TreeNode<T>): T[] {
-  return [
-    node.value,
-    ...PostorderSort(node.left),
-    ...PostorderSort(node.right),
-  ];
+function PreorderSort<T>(node?: TreeNode<T>): T[] {
+  return node
+    ? [node.value, ...PostorderSort(node.left), ...PostorderSort(node.right)]
+    : [];
 }
 
 class BinaryTree<T> implements IBinaryTree<T> {
