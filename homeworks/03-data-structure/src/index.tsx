@@ -12,7 +12,7 @@ interface TreeNode<T> {
 }
 
 interface IBinaryTree<T> {
-  constructor(tree: TreeNode<T>): void;
+  //   constructor(tree: TreeNode<T>): void;
 
   setTree(tree: TreeNode<T>): this;
 
@@ -21,8 +21,8 @@ interface IBinaryTree<T> {
   getColumn(columnOrder: number): T[];
 }
 
-interface BinarySearchTree extends BinaryTree<number> {
-  has(value: number): boolean;
+interface IBinarySearchTree<T> extends IBinaryTree<T> {
+  has(value: T): boolean;
 }
 
 function BreadthSort<T>(node: TreeNode<T>): T[] {
@@ -30,7 +30,7 @@ function BreadthSort<T>(node: TreeNode<T>): T[] {
   const queue: TreeNode<T>[] = [node];
   while (1) {
     const currentNode = queue.shift();
-    if (!currentNode.value) break;
+    if (!currentNode) break;
     result.push(currentNode.value);
     if (currentNode.left) queue.push(currentNode.left);
     if (currentNode.right) queue.push(currentNode.right);
@@ -100,4 +100,21 @@ function GetTreeColumn<T>(
   result.push(...GetTreeColumn(node.right, expectedColumn, currentColumn + 1));
 
   return result;
+}
+
+class BinarySearchTree<T>
+  extends BinaryTree<T>
+  implements IBinarySearchTree<T> {
+  has(value: T): boolean {
+    return isValue(value, this.tree);
+  }
+}
+
+function isValue<T>(value: T, node?: TreeNode<T>): boolean {
+  if (!node) return false;
+  return value === node.value
+    ? true
+    : value > node.value
+    ? isValue(value, node.right)
+    : isValue(value, node.left);
 }
