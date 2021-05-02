@@ -1,3 +1,5 @@
+import { mergeSort, compareFunction } from "./mergeSort";
+
 enum TraverseType {
   Inorder,
   Preorder,
@@ -5,114 +7,95 @@ enum TraverseType {
   Breadth,
 }
 
-interface TreeNode<T> {
+export interface TreeNode<T> {
   value: T;
-  left?: TreeNode<T>;
-  right?: TreeNode<T>;
+  left: TreeNode<T> | null;
+  right: TreeNode<T> | null;
 }
 
-interface IBinaryTree<T> {
-  // constructor(tree: TreeNode<T>): void;
-
+export interface IBinaryTree<T> {
   setTree(tree: TreeNode<T>): this;
-
   traverse(type: TraverseType): T[];
-
   getColumn(columnOrder: number): T[];
 }
 
-interface IBinarySearchTree<T> extends IBinaryTree<T> {
-  has(value: T): boolean;
-}
+export class BinaryTree<T> implements IBinaryTree<T> {
+  constructor(protected tree: TreeNode<T>) {}
 
-function BreadthSort<T>(node: TreeNode<T>): T[] {
-  const result: T[] = [];
-  const queue: TreeNode<T>[] = [node];
-  while (1) {
-    const currentNode = queue.shift();
-    if (!currentNode) break;
-    result.push(currentNode.value);
-    if (currentNode.left) queue.push(currentNode.left);
-    if (currentNode.right) queue.push(currentNode.right);
-  }
-  return result;
-}
-
-function InorderSort<T>(node?: TreeNode<T>): T[] {
-  return node
-    ? [...InorderSort(node.left), node.value, ...InorderSort(node.right)]
-    : [];
-}
-function PostorderSort<T>(node?: TreeNode<T>): T[] {
-  return node
-    ? [...PostorderSort(node.left), ...PostorderSort(node.right), node.value]
-    : [];
-}
-function PreorderSort<T>(node?: TreeNode<T>): T[] {
-  return node
-    ? [node.value, ...PostorderSort(node.left), ...PostorderSort(node.right)]
-    : [];
-}
-
-class BinaryTree<T> implements IBinaryTree<T> {
-  tree: TreeNode<T>;
-  constructor(tree: TreeNode<T>) {
-    this.tree = tree;
-  }
-
-  setTree(node: TreeNode<T>): this {
+  public setTree(node: TreeNode<T>): this {
     this.tree = node;
     return this;
   }
 
-  traverse(type: TraverseType): T[] {
+  public traverse(type: TraverseType): T[] {
     switch (type) {
       case TraverseType.Breadth:
-        return BreadthSort(this.tree);
+        return this.breadthSort(this.tree);
       case TraverseType.Inorder:
-        return InorderSort(this.tree);
+        return this.inorderSort(this.tree);
       case TraverseType.Postorder:
-        return PostorderSort(this.tree);
+        return this.postorderSort(this.tree);
       case TraverseType.Preorder:
-        return PreorderSort(this.tree);
+        return this.preorderSort(this.tree);
     }
   }
 
-  getColumn(columnOrder: number): T[] {
-    return GetTreeColumn(this.tree, columnOrder);
+  private breadthSort(node: TreeNode<T>): T[] {
+    const result: T[] = [];
+    const queue: TreeNode<T>[] = [node];
+    while (true) {
+      const currentNode = queue.shift();
+      if (!currentNode) break;
+      result.push(currentNode.value);
+      if (currentNode.left) queue.push(currentNode.left);
+      if (currentNode.right) queue.push(currentNode.right);
+    }
+    return result;
   }
-}
 
-function GetTreeColumn<T>(
-  node: TreeNode<T> | undefined,
-  expectedColumn: number,
-  currentColumn: number = 0
-): T[] {
-  if (!node) return [];
-
-  const result: T[] = [];
-
-  if (currentColumn === expectedColumn) result.push(node.value);
-
-  result.push(...GetTreeColumn(node.left, expectedColumn, currentColumn - 1));
-  result.push(...GetTreeColumn(node.right, expectedColumn, currentColumn + 1));
-
-  return result;
-}
-
-class BinarySearchTree<T>
-  extends BinaryTree<T>
-  implements IBinarySearchTree<T> {
-  has(value: T): boolean {
-    return isValue(value, this.tree);
+  private inorderSort(node: TreeNode<T> | null): T[] {
+    return node
+      ? [
+          ...this.inorderSort(node.left),
+          node.value,
+          ...this.inorderSort(node.right),
+        ]
+      : [];
   }
-}
 
-function isValue<T>(value: T, node?: TreeNode<T>): boolean {
-  if (!node) return false;
-  return value === node.value
-    ? true
-    : value > node.value
-    ? isValue(value, node.right)
-    : isValue(value, node.left);
+  private postorderSort(node: TreeNode<T> | null): T[] {
+    return node
+      ? [
+          ...this.postorderSort(node.left),
+          ...this.postorderSort(node.right),
+          node.value,
+        ]
+      : [];
+  }
+
+  private preorderSort(node: TreeNode<T>): T[] {
+    return node
+      ? [
+          node.value,
+          ...this.postorderSort(node.left),
+          ...this.postorderSort(node.right),
+        ]
+      : [];
+  }
+
+  public getColumn(columnOrder: number): T[] {
+    const getColumnValue = (
+      node: TreeNode<T> | null,
+      currentColumn: number
+    ): T[] => {
+      return !node
+        ? []
+        : [
+            ...(currentColumn === columnOrder ? [node.value] : []),
+            ...getColumnValue(node.left, currentColumn - 1),
+            ...getColumnValue(node.right, currentColumn + 1),
+          ];
+    };
+    return mergeSort(getColumnValue(this.tree, 0), compareFunction);
+  }
 }
