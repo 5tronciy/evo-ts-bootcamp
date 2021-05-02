@@ -1,6 +1,6 @@
 import { mergeSort, compareFunction } from "./mergeSort";
 
-enum TraverseType {
+export enum TraverseType {
   Inorder,
   Preorder,
   Postorder,
@@ -73,12 +73,12 @@ export class BinaryTree<T> implements IBinaryTree<T> {
       : [];
   }
 
-  private preorderSort(node: TreeNode<T>): T[] {
+  private preorderSort(node: TreeNode<T> | null): T[] {
     return node
       ? [
           node.value,
-          ...this.postorderSort(node.left),
-          ...this.postorderSort(node.right),
+          ...this.preorderSort(node.left),
+          ...this.preorderSort(node.right),
         ]
       : [];
   }
