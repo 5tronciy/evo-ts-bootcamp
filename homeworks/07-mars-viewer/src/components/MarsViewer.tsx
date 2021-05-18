@@ -8,7 +8,9 @@ export const MarsViewer = () => {
   const dispatch = useDispatch();
   const onChange = (event: BaseSyntheticEvent) => {
     const inputValue = parseInt(event.target.value);
-    dispatch({ type: ActionTypes.changeSelectedSol, payload: inputValue });
+    if (inputValue) {
+      dispatch({ type: ActionTypes.changeSelectedSol, payload: inputValue });
+    }
   };
 
   const sol = useSelector((state: RootState) => state.mars.selectedSol);
