@@ -1,6 +1,6 @@
 import { BaseSyntheticEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSol } from "../app/actionCreators";
+import { changeSol } from "../app/actionCreators";
 import { RootState } from "../app/store";
 import { fetchPhotosBySol } from "../utils/api";
 import s from "./MarsViewer.module.css";
@@ -10,7 +10,7 @@ export const MarsViewer = () => {
   const onChange = (event: BaseSyntheticEvent) => {
     const inputValue = parseInt(event.target.value);
     if (inputValue) {
-      dispatch(setSol(inputValue));
+      dispatch(changeSol(inputValue));
     }
   };
 

@@ -6,6 +6,30 @@ type Sol = {
   photos: string[];
 };
 
+type Camera = {
+  full_name: string;
+  id: string;
+  name: string;
+  rover_id: string;
+};
+
+type Rover = {
+  id: string;
+  landing_date: string;
+  launch_date: string;
+  name: string;
+  status: string;
+};
+
+type FetchPhoto = {
+  id: string;
+  img_src: string;
+  earth_date: string;
+  rover: Rover;
+  camera: Camera;
+  sol: number;
+};
+
 type Photo = {
   id: string;
   imgSrc: string;
