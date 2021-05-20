@@ -1,7 +1,8 @@
 import { BaseSyntheticEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setSol } from "../app/actionCreators";
 import { RootState } from "../app/store";
-import { ActionTypes } from "../app/types";
+import { fetchPhotosBySol } from "../utils/api";
 import s from "./MarsViewer.module.css";
 
 export const MarsViewer = () => {
@@ -9,11 +10,15 @@ export const MarsViewer = () => {
   const onChange = (event: BaseSyntheticEvent) => {
     const inputValue = parseInt(event.target.value);
     if (inputValue) {
-      dispatch({ type: ActionTypes.changeSelectedSol, payload: inputValue });
+      dispatch(setSol(inputValue));
     }
   };
 
-  const sol = useSelector((state: RootState) => state.mars.selectedSol);
+  const sol: number = useSelector((state: RootState) => state.mars.selectedSol);
+
+  const onLoad = () => {
+    dispatch(fetchPhotosBySol(sol));
+  };
 
   return (
     <div className={s.viewer}>
@@ -24,7 +29,7 @@ export const MarsViewer = () => {
         type="number"
         value={sol}
       />
-      <button>load</button>
+      <button onClick={onLoad}>load</button>
       <p>Photos are not loaded</p>
     </div>
   );

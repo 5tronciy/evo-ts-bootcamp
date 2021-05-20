@@ -1,3 +1,5 @@
 export enum ActionTypes {
-  changeSelectedSol = "CHANGE_SELECTED_SOL",
+  changeSelectedSol = "mars/changeSelectedSol",
+  addPhotos = "mars/addPhotos",
+  addDays = "mars/addDays",
 }

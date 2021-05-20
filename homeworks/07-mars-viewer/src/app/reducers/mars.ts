@@ -1,13 +1,34 @@
-import { AnyAction } from "@reduxjs/toolkit";
-import { ActionTypes } from "../types";
+import { createReducer } from "@reduxjs/toolkit";
+import { changeSol } from "../actionCreators";
 
-const initialState = { status: "", selectedSol: 1, sols: [], photos: [] };
-
-export const marsReducer = (state = initialState, action: AnyAction) => {
-  switch (action.type) {
-    case ActionTypes.changeSelectedSol:
-      return { ...state, selectedSol: action.payload };
-    default:
-      return state;
-  }
+type Sol = {
+  num: number;
+  photos: string[];
 };
+
+type Photo = {
+  id: string;
+  imgSrc: string;
+  roverName: string;
+  cameraFullName: string;
+};
+
+interface MarsState {
+  status: string;
+  selectedSol: number;
+  sols: Sol[];
+  photos: Photo[];
+}
+
+const initialState = {
+  status: "idle",
+  selectedSol: 1,
+  sols: [],
+  photos: [],
+} as MarsState;
+
+export const marsReducer = createReducer(initialState, (builder) => {
+  builder.addCase(changeSol, (state, action) => {
+    state.selectedSol = action.payload;
+  });
+});
