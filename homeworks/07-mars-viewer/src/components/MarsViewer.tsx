@@ -34,7 +34,7 @@ export const MarsViewer = () => {
         value={mars.selectedSol}
       />
       <button onClick={onLoad}>load</button>
-      {mars.photos.length > 0 ? (
+      {mars.sols.find((sol) => sol.num === mars.selectedSol) ? (
         <div className={s.grid}>
           {mars.photos
             .filter((photo) => sol?.photos.includes(photo.id))

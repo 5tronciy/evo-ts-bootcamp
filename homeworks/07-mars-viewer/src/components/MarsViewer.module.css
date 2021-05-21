@@ -1,7 +1,17 @@
 .viewer {
-  margin: 2em;
+  width: 100%;
 }
 
 .input {
-  margin-right: 1em;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, auto));
+  grid-gap: 10px;
+  width: 100%;
+  margin: auto;
+  justify-content: center;
 }

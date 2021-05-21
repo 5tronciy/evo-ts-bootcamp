@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { merge } from "../../utils";
 
 export type Sol = {
   num: number;
@@ -58,13 +59,14 @@ export const marsSlicer = createSlice({
       state.selectedSol = action.payload;
     },
     addPhotos: (state, action) => {
-      state.photos = action.payload.map((photo: FetchPhoto) => {
+      const newPhotos = action.payload.map((photo: FetchPhoto) => {
         const id = photo.id;
         const imgSrc = photo.img_src;
         const roverName = photo.rover.name;
         const cameraFullName = photo.camera.full_name;
         return { id, imgSrc, roverName, cameraFullName };
       });
+      state.photos = merge(state.photos, newPhotos, "id");
     },
     addDays: (state, action) => {
       state.sols.push(action.payload);
