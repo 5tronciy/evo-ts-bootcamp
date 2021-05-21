@@ -1,11 +1,11 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { favouritesReducer } from "./reducers/favourites";
-import { marsReducer } from "./reducers/mars";
+import { marsSlicer } from "./reducers/mars";
 import { routesReducer } from "./reducers/routes";
 
 export const store = configureStore({
   reducer: {
-    mars: marsReducer,
+    mars: marsSlicer.reducer,
     favourites: favouritesReducer,
     routes: routesReducer,
   },

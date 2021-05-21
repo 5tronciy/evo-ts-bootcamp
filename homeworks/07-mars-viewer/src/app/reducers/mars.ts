@@ -1,5 +1,4 @@
-import { createReducer } from "@reduxjs/toolkit";
-import { addDays, addPhotos, changeSol } from "../actionCreators";
+import { createSlice } from "@reduxjs/toolkit";
 
 export type Sol = {
   num: number;
@@ -51,15 +50,18 @@ const initialState = {
   photos: [],
 } as MarsState;
 
-export const marsReducer = createReducer(initialState, (builder) => {
-  builder
-    .addCase(changeSol, (state, action) => {
+export const marsSlicer = createSlice({
+  name: "mars",
+  initialState: initialState,
+  reducers: {
+    changeSelectedSol: (state, action) => {
       state.selectedSol = action.payload;
-    })
-    .addCase(addPhotos, (state, action) => {
+    },
+    addPhotos: (state, action) => {
       state.photos = action.payload;
-    })
-    .addCase(addDays, (state, action) => {
+    },
+    addDays: (state, action) => {
       state.sols.push(action.payload);
-    });
+    },
+  },
 });
