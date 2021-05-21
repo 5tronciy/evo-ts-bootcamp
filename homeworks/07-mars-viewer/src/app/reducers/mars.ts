@@ -1,7 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { changeSol } from "../actionCreators";
+import { addDays, addPhotos, changeSol } from "../actionCreators";
 
-type Sol = {
+export type Sol = {
   num: number;
   photos: string[];
 };
@@ -30,7 +30,7 @@ type FetchPhoto = {
   sol: number;
 };
 
-type Photo = {
+export type Photo = {
   id: string;
   imgSrc: string;
   roverName: string;
@@ -52,7 +52,14 @@ const initialState = {
 } as MarsState;
 
 export const marsReducer = createReducer(initialState, (builder) => {
-  builder.addCase(changeSol, (state, action) => {
-    state.selectedSol = action.payload;
-  });
+  builder
+    .addCase(changeSol, (state, action) => {
+      state.selectedSol = action.payload;
+    })
+    .addCase(addPhotos, (state, action) => {
+      state.photos = action.payload;
+    })
+    .addCase(addDays, (state, action) => {
+      state.sols.push(action.payload);
+    });
 });

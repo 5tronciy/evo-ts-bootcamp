@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ActionTypes } from "../app/types";
+import { addDays, addPhotos } from "../app/actionCreators";
+import { Photo } from "../app/reducers/mars";
 
 const apiKey = process.env.REACT_APP_NASA_API_KEY;
 
@@ -16,8 +17,12 @@ export const fetchPhotosBySol = createAsyncThunk(
   "mars/fetchSol",
   async (sol: number, thunkAPI) => {
     const response = await loadPhotos(sol);
-    thunkAPI.dispatch({ type: ActionTypes.addPhotos, payload: response.data });
-    thunkAPI.dispatch({ type: ActionTypes.addDays, payload: sol });
+    thunkAPI.dispatch(addPhotos(response.photos));
+    const solObject = {
+      num: sol,
+      photos: response.photos.map((item: Photo) => item.id),
+    };
+    thunkAPI.dispatch(addDays(solObject));
   }
 );
 
