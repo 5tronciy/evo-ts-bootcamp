@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { marsSlicer } from "../app/reducers/mars";
 import { RootState } from "../app/store";
 import { fetchPhotosBySol } from "../utils/api";
+import { Photo } from "./Photo";
 import s from "./MarsViewer.module.css";
 
 export const MarsViewer = () => {
@@ -15,10 +16,12 @@ export const MarsViewer = () => {
     }
   };
 
-  const sol: number = useSelector((state: RootState) => state.mars.selectedSol);
+  const mars = useSelector((state: RootState) => state.mars);
+
+  const sol = mars.sols.find((sol) => sol.num === mars.selectedSol);
 
   const onLoad = () => {
-    dispatch(fetchPhotosBySol(sol));
+    dispatch(fetchPhotosBySol(mars.selectedSol));
   };
 
   return (
@@ -28,10 +31,20 @@ export const MarsViewer = () => {
         className={s.input}
         onChange={onChange}
         type="number"
-        value={sol}
+        value={mars.selectedSol}
       />
       <button onClick={onLoad}>load</button>
-      <p>Photos are not loaded</p>
+      {mars.photos.length > 0 ? (
+        <div className={s.grid}>
+          {mars.photos
+            .filter((photo) => sol?.photos.includes(photo.id))
+            .map((photo) => (
+              <Photo key={photo.id} photo={photo} />
+            ))}
+        </div>
+      ) : (
+        <p>Photos are not loaded</p>
+      )}
     </div>
   );
 };

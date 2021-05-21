@@ -29,18 +29,18 @@ type FetchPhoto = {
   sol: number;
 };
 
-export type Photo = {
+export interface IPhoto {
   id: string;
   imgSrc: string;
   roverName: string;
   cameraFullName: string;
-};
+}
 
 interface MarsState {
   status: string;
   selectedSol: number;
   sols: Sol[];
-  photos: Photo[];
+  photos: IPhoto[];
 }
 
 const initialState = {
@@ -58,7 +58,13 @@ export const marsSlicer = createSlice({
       state.selectedSol = action.payload;
     },
     addPhotos: (state, action) => {
-      state.photos = action.payload;
+      state.photos = action.payload.map((photo: FetchPhoto) => {
+        const id = photo.id;
+        const imgSrc = photo.img_src;
+        const roverName = photo.rover.name;
+        const cameraFullName = photo.camera.full_name;
+        return { id, imgSrc, roverName, cameraFullName };
+      });
     },
     addDays: (state, action) => {
       state.sols.push(action.payload);

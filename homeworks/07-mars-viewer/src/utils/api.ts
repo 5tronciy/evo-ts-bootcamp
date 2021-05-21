@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { marsSlicer, Photo } from "../app/reducers/mars";
+import { marsSlicer, IPhoto } from "../app/reducers/mars";
 
 const apiKey = process.env.REACT_APP_NASA_API_KEY;
 
@@ -19,7 +19,7 @@ export const fetchPhotosBySol = createAsyncThunk(
     thunkAPI.dispatch(marsSlicer.actions.addPhotos(response.photos));
     const solObject = {
       num: sol,
-      photos: response.photos.map((item: Photo) => item.id),
+      photos: response.photos.map((item: IPhoto) => item.id),
     };
     thunkAPI.dispatch(marsSlicer.actions.addDays(solObject));
   }
