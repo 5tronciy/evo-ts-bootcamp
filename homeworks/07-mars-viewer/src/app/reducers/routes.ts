@@ -1,10 +1,17 @@
-import { AnyAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { selectedRoute: "nasa" };
+interface IRouter {
+  selectedRoute: string;
+}
 
-export const routesReducer = (state = initialState, action: AnyAction) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
+const initialState = { selectedRoute: "nasa" } as IRouter;
+
+export const routesReducer = createSlice({
+  name: "routes",
+  initialState: initialState,
+  reducers: {
+    changeRoute: (state, action) => {
+      state.selectedRoute = action.payload;
+    },
+  },
+});

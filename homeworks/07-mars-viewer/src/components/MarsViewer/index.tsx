@@ -1,22 +1,21 @@
 import { BaseSyntheticEvent } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { marsSlicer } from "../app/reducers/mars";
-import { RootState } from "../app/store";
-import { fetchPhotosBySol } from "../utils/api";
-import { Photo } from "./Photo";
-import s from "./MarsViewer.module.css";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { marsReducer, fetchPhotosBySol } from "../../app/reducers/mars";
+import { RootState } from "../../app/store";
+import { Photo } from "../Photo";
+import s from "./styles.module.css";
 
 export const MarsViewer = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onChange = (event: BaseSyntheticEvent) => {
     const inputValue = parseInt(event.target.value);
     if (inputValue) {
-      dispatch(marsSlicer.actions.changeSelectedSol(inputValue));
+      dispatch(marsReducer.actions.changeSelectedSol(inputValue));
     }
   };
 
-  const mars = useSelector((state: RootState) => state.mars);
+  const mars = useAppSelector((state: RootState) => state.mars);
 
   const sol = mars.sols.find((sol) => sol.num === mars.selectedSol);
 
@@ -34,7 +33,9 @@ export const MarsViewer = () => {
         value={mars.selectedSol}
       />
       <button onClick={onLoad}>load</button>
-      {mars.sols.find((sol) => sol.num === mars.selectedSol) ? (
+      {mars.status === "loading" ? (
+        <p>Loading...</p>
+      ) : mars.sols.find((sol) => sol.num === mars.selectedSol) ? (
         <div className={s.grid}>
           {mars.photos
             .filter((photo) => sol?.photos.includes(photo.id))

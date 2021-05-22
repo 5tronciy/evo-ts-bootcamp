@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { merge } from "../../utils";
+import { loadPhotos } from "../../utils/api";
 
 export type Sol = {
   num: number;
@@ -21,7 +22,7 @@ type Rover = {
   status: string;
 };
 
-type FetchPhoto = {
+export type FetchPhoto = {
   id: string;
   img_src: string;
   earth_date: string;
@@ -51,7 +52,20 @@ const initialState = {
   photos: [],
 } as MarsState;
 
-export const marsSlicer = createSlice({
+export const fetchPhotosBySol = createAsyncThunk(
+  "mars/fetchSol",
+  async (sol: number, thunkAPI) => {
+    const response = await loadPhotos(sol);
+    thunkAPI.dispatch(marsReducer.actions.addPhotos(response.photos));
+    const solObject = {
+      num: sol,
+      photos: response.photos.map((item: IPhoto) => item.id),
+    };
+    thunkAPI.dispatch(marsReducer.actions.addDays(solObject));
+  }
+);
+
+export const marsReducer = createSlice({
   name: "mars",
   initialState: initialState,
   reducers: {
@@ -71,5 +85,14 @@ export const marsSlicer = createSlice({
     addDays: (state, action) => {
       state.sols.push(action.payload);
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchPhotosBySol.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(fetchPhotosBySol.fulfilled, (state, action) => {
+        state.status = "idle";
+      });
   },
 });

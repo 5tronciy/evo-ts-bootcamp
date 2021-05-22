@@ -1,7 +1,22 @@
-import s from "./Photo.module.css";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { favouritesReducer } from "../../app/reducers/favourites";
+import { RootState } from "../../app/store";
+import s from "./styles.module.css";
 
 export const Photo = ({ ...props }) => {
   //? photo:IPhoto instead {...props} causes an error TS2322 in MarsViewer.tsx 42:49
+
+  const dispatch = useAppDispatch();
+
+  const favourites = useAppSelector(
+    (state: RootState) => state.favourites.photoIds
+  );
+
+  const onFavourite = () => {
+    favourites.includes(props.photo.id)
+      ? dispatch(favouritesReducer.actions.removeFromFavourites(props.photo.id))
+      : dispatch(favouritesReducer.actions.addToFavourites(props.photo.id));
+  };
 
   return (
     <div className={s.photoContainer}>
@@ -13,6 +28,7 @@ export const Photo = ({ ...props }) => {
         xmlns="http://www.w3.org/2000/svg"
         opacity="0.7"
         className={s.heart}
+        onClick={onFavourite}
       >
         <path
           d="M89.834 48.974L48.81 8.95 7.786 48.974 48.81 89l41.023-40.026z"

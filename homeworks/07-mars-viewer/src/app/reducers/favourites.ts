@@ -1,10 +1,20 @@
-import { AnyAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { photoIds: [] };
+interface IFavourites {
+  photoIds: string[];
+}
 
-export const favouritesReducer = (state = initialState, action: AnyAction) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
+const initialState = { photoIds: [] } as IFavourites;
+
+export const favouritesReducer = createSlice({
+  name: "favourites",
+  initialState: initialState,
+  reducers: {
+    addToFavourites: (state, action) => {
+      state.photoIds.push(action.payload);
+    },
+    removeFromFavourites: (state, action) => {
+      state.photoIds = state.photoIds.filter((id) => id !== action.payload);
+    },
+  },
+});

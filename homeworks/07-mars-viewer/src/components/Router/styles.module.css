@@ -1,0 +1,15 @@
+.router {
+  padding: 5px;
+}
+
+.route {
+  text-decoration: underline;
+  color: #00f;
+  cursor: pointer;
+}
+
+.selectedRoute {
+  text-decoration: none;
+  color: #000;
+  cursor: default;
+}
