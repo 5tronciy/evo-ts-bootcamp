@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { merge } from "../../utils";
 import { loadPhotos } from "../../utils/api";
 
-export type Sol = {
+type Sol = {
   num: number;
   photos: string[];
 };
@@ -31,7 +31,7 @@ export type FetchPhoto = {
   sol: number;
 };
 
-export interface IPhoto {
+interface IPhoto {
   id: string;
   imgSrc: string;
   roverName: string;
@@ -59,7 +59,7 @@ export const fetchPhotosBySol = createAsyncThunk(
     thunkAPI.dispatch(marsReducer.actions.addPhotos(response.photos));
     const solObject = {
       num: sol,
-      photos: response.photos.map((item: IPhoto) => item.id),
+      photos: response.photos.map((item: FetchPhoto) => item.id),
     };
     thunkAPI.dispatch(marsReducer.actions.addDays(solObject));
   }
@@ -69,20 +69,19 @@ export const marsReducer = createSlice({
   name: "mars",
   initialState: initialState,
   reducers: {
-    changeSelectedSol: (state, action) => {
+    changeSelectedSol: (state, action: PayloadAction<number>) => {
       state.selectedSol = action.payload;
     },
-    addPhotos: (state, action) => {
-      const newPhotos = action.payload.map((photo: FetchPhoto) => {
-        const id = photo.id;
-        const imgSrc = photo.img_src;
-        const roverName = photo.rover.name;
-        const cameraFullName = photo.camera.full_name;
-        return { id, imgSrc, roverName, cameraFullName };
-      });
+    addPhotos: (state, action: PayloadAction<FetchPhoto[]>) => {
+      const newPhotos = action.payload.map((photo) => ({
+        id: photo.id,
+        imgSrc: photo.img_src,
+        roverName: photo.rover.name,
+        cameraFullName: photo.camera.full_name,
+      }));
       state.photos = merge(state.photos, newPhotos, "id");
     },
-    addDays: (state, action) => {
+    addDays: (state, action: PayloadAction<Sol>) => {
       state.sols.push(action.payload);
     },
   },

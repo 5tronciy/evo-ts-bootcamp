@@ -34,12 +34,12 @@ export const Router = () => {
             ? cn(s.route, s.selectedRoute)
             : s.route;
         return (
-          <>
+          <span key={item.name}>
             {item !== menuItems[0] ? " | " : ""}
-            <span key={item.name} className={className} onClick={onMenuItem}>
+            <span className={className} onClick={onMenuItem}>
               {item.name}
             </span>
-          </>
+          </span>
         );
       })}
     </p>
