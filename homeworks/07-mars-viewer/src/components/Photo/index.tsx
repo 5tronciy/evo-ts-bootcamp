@@ -12,8 +12,12 @@ export const Photo = ({ ...props }) => {
     (state: RootState) => state.favourites.photoIds
   );
 
+  const isFavourite = favourites.includes(props.photo.id);
+
+  const opacity = isFavourite ? 1 : 0.5;
+
   const onFavourite = () => {
-    favourites.includes(props.photo.id)
+    isFavourite
       ? dispatch(favouritesReducer.actions.removeFromFavourites(props.photo.id))
       : dispatch(favouritesReducer.actions.addToFavourites(props.photo.id));
   };
@@ -26,7 +30,7 @@ export const Photo = ({ ...props }) => {
         viewBox="0 0 98 89"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        opacity="0.7"
+        opacity={opacity}
         className={s.heart}
         onClick={onFavourite}
       >

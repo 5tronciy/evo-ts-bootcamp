@@ -17,6 +17,7 @@ export const Router = () => {
 
   const onMenuItem = (event: SyntheticEvent) => {
     const element = event.target as HTMLSpanElement;
+
     const route = menuItems.find(
       (item) => item.name === element.innerText
     )?.route;
@@ -27,27 +28,20 @@ export const Router = () => {
 
   return (
     <p className={s.router}>
-      {menuItems.map((item) =>
-        item.route === routes.selectedRoute ? (
+      {menuItems.map((item) => {
+        const className =
+          item.route === routes.selectedRoute
+            ? cn(s.route, s.selectedRoute)
+            : s.route;
+        return (
           <>
             {item !== menuItems[0] ? " | " : ""}
-            <span
-              key={item.name}
-              className={cn(s.route, s.selectedRoute)}
-              onClick={onMenuItem}
-            >
+            <span key={item.name} className={className} onClick={onMenuItem}>
               {item.name}
             </span>
           </>
-        ) : (
-          <>
-            {item !== menuItems[0] ? " | " : ""}
-            <span key={item.name} className={s.route} onClick={onMenuItem}>
-              {item.name}
-            </span>
-          </>
-        )
-      )}
+        );
+      })}
     </p>
   );
 };
