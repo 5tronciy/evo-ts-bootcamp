@@ -1,0 +1,9 @@
+.app {
+  display: flex;
+  justify-content: center;
+}
+
+.house {
+  width: 250px;
+  background-color: #c7bab9;
+}
