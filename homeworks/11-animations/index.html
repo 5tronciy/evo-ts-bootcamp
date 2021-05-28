@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading animation</title>
+    <style>
+      .container {
+        display: flex;
+      }
+
+      #sector3 {
+        animation: 3s infinite sector3;
+      }
+
+      @keyframes sector3 {
+        0% {
+          transform: translate(720px, 512px) rotate(-75deg);
+          animation-timing-function: cubic-bezier(1, 0, 1, 0.9);
+        }
+        50% {
+          transform: translate(720px, 512px) rotate(-250deg);
+          animation-timing-function: cubic-bezier(0, 0, 0, 1);
+        }
+        100% {
+          transform: translate(720px, 512px) rotate(-435deg);
+        }
+      }
+
+      #sector2 {
+        animation: 5s infinite ease-in-out sector2;
+      }
+
+      @keyframes sector2 {
+        0% {
+          transform: translate(720px, 512px) rotate(90deg);
+          stroke-dasharray: 1000;
+        }
+
+        25% {
+          transform: translate(720px, 512px) rotate(120deg);
+          stroke-dasharray: 900;
+        }
+
+        50% {
+          transform: translate(720px, 512px) rotate(450deg);
+          stroke-dasharray: 500;
+        }
+        100% {
+          transform: translate(720px, 512px) rotate(450deg);
+          stroke-dasharray: 1000;
+        }
+      }
+
+      #sector1 {
+        animation: 4s infinite linear sector1;
+      }
+
+      @keyframes sector1 {
+        0% {
+          transform: translate(720px, 512px) rotate(145deg);
+          stroke-dasharray: 900;
+        }
+        50% {
+          transform: translate(720px, 512px) rotate(325deg);
+          stroke-dasharray: 940;
+        }
+        100% {
+          transform: translate(720px, 512px) rotate(505deg);
+          stroke-dasharray: 900;
+        }
+      }
+
+      #hexagon7 {
+        animation: 3s ease-out infinite hexagon;
+        animation-delay: 1.2s;
+        transform-origin: center center;
+        transform-box: fill-box;
+      }
+
+      #hexagon6 {
+        animation: 3s ease-out 1s infinite hexagon;
+        transform-origin: center center;
+        transform-box: fill-box;
+      }
+
+      #hexagon5 {
+        animation: 3s ease-out 0.8s infinite hexagon;
+        transform-origin: center center;
+        transform-box: fill-box;
+      }
+
+      #hexagon4 {
+        animation: 3s ease-out 0.6s infinite hexagon;
+        transform-origin: center center;
+        transform-box: fill-box;
+      }
+
+      #hexagon3 {
+        animation: 3s ease-out 0.4s infinite hexagon;
+        transform-origin: center center;
+        transform-box: fill-box;
+      }
+
+      #hexagon2 {
+        animation: 3s ease-out 0.2s infinite hexagon;
+        transform-origin: center center;
+        transform-box: fill-box;
+      }
+
+      #hexagon1 {
+        animation: 3s ease-out infinite hexagon;
+        transform-origin: center center;
+        transform-box: fill-box;
+      }
+
+      @keyframes hexagon {
+        0% {
+          transform: scale(0.95, 0.95);
+          opacity: 100%;
+        }
+        13.333333% {
+          transform: scale(0.4, 0.4);
+          opacity: 0%;
+        }
+        46.666667% {
+          transform: scale(0.4, 0.4);
+          opacity: 0%;
+        }
+        60% {
+          transform: scale(0.95, 0.95);
+          opacity: 100%;
+        }
+        100% {
+          transform: scale(0.95, 0.95);
+          opacity: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 1440 1024"
+        shape-rendering="geometricPrecision"
+        text-rendering="geometricPrecision"
+        width="1440"
+        height="800"
+      >
+        <g id="loading">
+          <circle
+            id="circle3"
+            r="295"
+            transform="matrix(1 0 0 1 720 512)"
+            fill="none"
+            stroke="rgb(91,112,124)"
+            stroke-width="25"
+            stroke-opacity="0.2"
+          />
+          <g>
+            <g id="sector3">
+              <circle
+                r="190"
+                fill="none"
+                stroke="rgb(91,112,124)"
+                stroke-width="3"
+                stroke-opacity="0.5"
+                stroke-dashoffset="1550"
+                stroke-dasharray="1330"
+              />
+            </g>
+            <circle
+              r="190"
+              transform="matrix(1 0 0 1 720 512)"
+              opacity="0.5"
+              fill="none"
+              stroke="rgb(91,112,124)"
+              stroke-width="3"
+              stroke-opacity="0.5"
+            />
+          </g>
+          <g>
+            <g id="sector2">
+              <circle
+                style="mix-blend-mode: darken"
+                r="160"
+                transform="translate(0,0)"
+                opacity="0.5"
+                fill="none"
+                stroke="rgb(91,112,124)"
+                stroke-width="10"
+                stroke-opacity="0.5"
+                stroke-dashoffset="850"
+              />
+            </g>
+            <g id="sector1">
+              <circle
+                r="160"
+                transform="translate(0,0)"
+                fill="none"
+                stroke="rgb(91,112,124)"
+                stroke-width="10"
+                stroke-opacity="0.5"
+                stroke-dashoffset="950"
+              />
+            </g>
+            <circle
+              r="160"
+              transform="matrix(1 0 0 1 720 512)"
+              opacity="0.5"
+              fill="none"
+              stroke="rgb(57,78,90)"
+              stroke-width="10"
+              stroke-opacity="0.5"
+            />
+          </g>
+          <g transform="matrix(0.8 0 0 0.8 144 102.4)">
+            <g id="hexagon7" transform="scale(0.95,0.95)">
+              <path
+                d="M715,464.887000C718.094000,463.100000,721.906000,463.100000,725,464.887000L758.301000,484.113000C761.395000,485.900000,763.301000,489.201000,763.301000,492.774000L763.301000,531.226000C763.301000,534.799000,761.395000,538.100000,758.301000,539.887000L725,559.113000C721.906000,560.900000,718.094000,560.900000,715,559.113000L681.699000,539.887000C678.605000,538.100000,676.699000,534.799000,676.699000,531.227000L676.699000,492.774000C676.699000,489.201000,678.605000,485.900000,681.699000,484.113000L715,464.887000Z"
+                fill="rgb(91,112,124)"
+                stroke="none"
+                stroke-width="1"
+              />
+            </g>
+            <g id="hexagon6" transform="scale(0.95,0.95)">
+              <path
+                d="M626,464.887000C629.094000,463.100000,632.906000,463.100000,636,464.887000L669.301000,484.113000C672.395000,485.900000,674.301000,489.201000,674.301000,492.774000L674.301000,531.226000C674.301000,534.799000,672.395000,538.100000,669.301000,539.887000L636,559.113000C632.906000,560.900000,629.094000,560.900000,626,559.113000L592.699000,539.887000C589.605000,538.100000,587.699000,534.799000,587.699000,531.227000L587.699000,492.774000C587.699000,489.201000,589.605000,485.900000,592.699000,484.113000L626,464.887000Z"
+                fill="rgb(91,112,124)"
+                stroke="none"
+                stroke-width="1"
+              />
+            </g>
+            <g id="hexagon5" transform="scale(0.95,0.95)">
+              <path
+                d="M670,541.887000C673.094000,540.100000,676.906000,540.100000,680,541.887000L713.301000,561.113000C716.395000,562.900000,718.301000,566.201000,718.301000,569.774000L718.301000,608.226000C718.301000,611.799000,716.395000,615.100000,713.301000,616.887000L680,636.113000C676.906000,637.900000,673.094000,637.900000,670,636.113000L636.699000,616.887000C633.605000,615.100000,631.699000,611.799000,631.699000,608.227000L631.699000,569.774000C631.699000,566.201000,633.605000,562.900000,636.699000,561.113000L670,541.887000Z"
+                fill="rgb(91,112,124)"
+                stroke="none"
+                stroke-width="1"
+              />
+            </g>
+            <g id="hexagon4" transform="scale(0.95,0.95)">
+              <path
+                d="M760,541.887000C763.094000,540.100000,766.906000,540.100000,770,541.887000L803.301000,561.113000C806.395000,562.900000,808.301000,566.201000,808.301000,569.774000L808.301000,608.226000C808.301000,611.799000,806.395000,615.100000,803.301000,616.887000L770,636.113000C766.906000,637.900000,763.094000,637.900000,760,636.113000L726.699000,616.887000C723.605000,615.100000,721.699000,611.799000,721.699000,608.227000L721.699000,569.774000C721.699000,566.201000,723.605000,562.900000,726.699000,561.113000L760,541.887000Z"
+                fill="rgb(91,112,124)"
+                stroke="none"
+                stroke-width="1"
+              />
+            </g>
+            <g id="hexagon3" transform="scale(0.95,0.95)">
+              <path
+                d="M804,464.887000C807.094000,463.100000,810.906000,463.100000,814,464.887000L847.301000,484.113000C850.395000,485.900000,852.301000,489.201000,852.301000,492.774000L852.301000,531.226000C852.301000,534.799000,850.395000,538.100000,847.301000,539.887000L814,559.113000C810.906000,560.900000,807.094000,560.900000,804,559.113000L770.699000,539.887000C767.605000,538.100000,765.699000,534.799000,765.699000,531.227000L765.699000,492.774000C765.699000,489.201000,767.605000,485.900000,770.699000,484.113000L804,464.887000Z"
+                fill="rgb(91,112,124)"
+                stroke="none"
+                stroke-width="1"
+              />
+            </g>
+            <g id="hexagon2" transform="scale(0.95,0.95)">
+              <path
+                d="M760,387.887000C763.094000,386.100000,766.906000,386.100000,770,387.887000L803.301000,407.113000C806.395000,408.900000,808.301000,412.201000,808.301000,415.774000L808.301000,454.226000C808.301000,457.799000,806.395000,461.100000,803.301000,462.887000L770,482.113000C766.906000,483.900000,763.094000,483.900000,760,482.113000L726.699000,462.887000C723.605000,461.100000,721.699000,457.799000,721.699000,454.227000L721.699000,415.774000C721.699000,412.201000,723.605000,408.900000,726.699000,407.113000L760,387.887000Z"
+                fill="rgb(91,112,124)"
+                stroke="none"
+                stroke-width="1"
+              />
+            </g>
+            <g id="hexagon1" transform="scale(0.95,0.95)">
+              <path
+                d="M670,387.887000C673.094000,386.100000,676.906000,386.100000,680,387.887000L713.301000,407.113000C716.395000,408.900000,718.301000,412.201000,718.301000,415.774000L718.301000,454.226000C718.301000,457.799000,716.395000,461.100000,713.301000,462.887000L680,482.113000C676.906000,483.900000,673.094000,483.900000,670,482.113000L636.699000,462.887000C633.605000,461.100000,631.699000,457.799000,631.699000,454.227000L631.699000,415.774000C631.699000,412.201000,633.605000,408.900000,636.699000,407.113000L670,387.887000Z"
+                fill="rgb(91,112,124)"
+                stroke="none"
+                stroke-width="1"
+              />
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </body>
+</html>
