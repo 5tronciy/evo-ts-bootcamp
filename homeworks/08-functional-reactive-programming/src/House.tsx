@@ -10,7 +10,11 @@ export const House = () => {
   ];
 
   const renderCell = (block: 0 | 1) => {
-    return block === 0 ? <Wall height="50px" /> : <Window height="50px" />;
+    return block === 0 ? (
+      <Wall height="50px" />
+    ) : (
+      <Window className="window" height="50px" />
+    );
   };
 
   return (
