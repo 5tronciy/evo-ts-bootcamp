@@ -1,17 +1,14 @@
-import s from "./App.module.css";
-import { ReactComponent as Wall } from "./assets/brick-wall.svg";
-import { ReactComponent as Window } from "./assets/windows.svg";
+import s from "./styles.module.css";
+import { ReactComponent as Wall } from "../../assets/brick-wall.svg";
+import { ReactComponent as Window } from "../../assets/windows.svg";
+import { HouseConnected } from "./HouseConnected";
 
-export const House = () => {
-  const gameBoard: Array<0 | 1> = [
-    0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0,
-    0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0,
-    0, 0, 0, 0, 0,
-  ];
+interface IProps {
+  rows: number[];
+  gameBoard: Array<0 | 1>;
+}
 
-  const floors = 5;
-  const rows = Array.from(Array(floors * 2 + 1).keys());
-
+export const House = ({ rows, gameBoard }: IProps) => {
   return (
     <div className={s.house}>
       {rows.map((floor) => (
@@ -34,3 +31,5 @@ export const House = () => {
     </div>
   );
 };
+
+export default HouseConnected;
